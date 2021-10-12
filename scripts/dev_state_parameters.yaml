@@ -4,17 +4,20 @@ jobs:
     target:
         adx:
             clusterUri:  to-be-overriden
-            database:  dev
+            database:  dtnadev01
     action:
         folderPath:  kql-scripts/complete
   delta-dev:
     current:
-        scripts:
-        - folderPath:  ../state
+    
+        adx:
+            clusterUri:  to-be-overriden
+            database:  dtnaadxprod01
+        
     target:
         adx:
             clusterUri:  to-be-overriden
-            database:  dev
+            database:  dtnadev01
     action:
         pushToConsole:  true
         filePath:  kql-scripts/delta.kql

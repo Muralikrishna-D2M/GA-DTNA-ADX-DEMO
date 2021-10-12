@@ -32,12 +32,13 @@ jobs:
         # wget https://github.com/microsoft/delta-kusto/releases/download/$clientVersion/delta-kusto-linux.tar.gz
 
         wget https://github.com/microsoft/delta-kusto/releases/download/0.6.0.85/delta-kusto-linux.tar.gz
-        echo " tar command starts"
+        echo  " tar command starts"
+        echo `pwd`
         tar -zxvf delta-kusto-linux.tar.gz 
         echo "cp command starts"
         sudo cp delta-kusto /bin 
         echo " bin ls starts"
-        echo `ls -lrt /bin`
+        echo `ls -l /bin/`
     
     
     # Checkout

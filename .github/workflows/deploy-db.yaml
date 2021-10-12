@@ -58,6 +58,8 @@ jobs:
       run: |
         clusterUri=${{ env.CLUSTER_URI }}
         echo "Cluster URI:  $clusterUri"
+        echo `pwd`
+        echo `ls -lrt ../scripts/*`
         # Package the login in a JSON payload
         login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
         ./bin/delta-kusto -p scripts/dev_state_parameters.yaml -o jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.current.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login

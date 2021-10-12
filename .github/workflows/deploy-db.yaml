@@ -42,7 +42,7 @@ jobs:
         sudo chmod +x /bin/delta-kusto
         echo " bin ls starts"
         echo `ls -l /bin/delta-kusto`
-        echo `./delta-kusto`
+        echo ` sudo ./delta-kusto`
     
     
     # Checkout
@@ -63,7 +63,7 @@ jobs:
         echo `ls -lrt scripts/*`
         # Package the login in a JSON payload
         login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
-        #sudo ./bin/delta-kusto -p scripts/dev_state_parameters.yaml -o jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.current.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
+        delta-kusto -p scripts/dev_state_parameters.yaml -o jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.current.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
       
     
     # artifacts upload

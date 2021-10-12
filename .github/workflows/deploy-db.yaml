@@ -1,0 +1,54 @@
+name: Workflow to deploy ADF ARM Template to UAT environment from DEV environment
+on: 
+  push:
+    branches: 
+      - adf-uat
+    paths:
+      - GA-DTNA-ADF-DEV/**
+
+env:
+  AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}        # set this to your Azure Resource group's name  
+  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}      # set this to your Azure Subscription Id
+  AZURE_DEV_DF_NAME: GA-DTNA-ADF-DEV
+  AZURE_PRD_DF_NAME: GA-DTNA-ADF-UAT
+  PROD_STORAGE_CONN_source: ${{ secrets.PROD_STORAGE_CONN_source }}
+  PROD_STORAGE_CONN_target: ${{ secrets.PROD_STORAGE_CONN_target }}
+
+jobs:
+  Stop_the_ADF_triggers:
+      
+    runs-on: ubuntu-latest
+    steps:
+    # Authentication 
+
+    - name: run the bash script to install delta kusto CLI
+      run: |
+
+        wget https://github.com/microsoft/delta-kusto/releases/download/$clientVersion/delta-kusto-linux.tar.gz
+        tar --extract --file delta-kusto-linux.tar.gz
+        chmod +x ./delta-kusto 
+        cp delta-kusto /bin 
+
+    - name: prepare the script folders
+      run: |
+
+        mkdir documentation/tutorials/az-dev-ops/reverse-engineer/kql-scripts
+        mkdir documentation/tutorials/az-dev-ops/reverse-engineer/kql-scripts/complete
+         
+    # Set up the following secrets in your repository: AZURE_CREDENTIALS
+    
+    - name: run delta kusto 
+      run: |
+        clusterUri=$(CLUSTER_URI)
+        echo "Cluster URI:  $clusterUri"
+        # Package the login in a JSON payload
+        login='{"tenantId":"$(TENANT_ID)","clientId":"$(CLIENT_ID)","secret":"$(SECRET)"}'
+        ./delta-kusto -p documentation/tutorials/az-dev-ops/reverse-engineer/rev-engineer-parameters.yaml -o jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
+      
+    
+    # artifacts upload
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: published
+        path: SyncKusto/bin/Release

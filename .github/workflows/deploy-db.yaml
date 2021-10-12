@@ -64,7 +64,7 @@ jobs:
         # Package the login in a JSON payload
         login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
         delta-kusto -p scripts/dev_state_parameters.yaml -o jobs.delta-dev.current.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
-        echo  `ls -lrt scripts/kql-scripts/*`
+        echo  `ls -R scripts/kql-scripts/*`
       
     
     # artifacts upload

@@ -8,10 +8,10 @@ on:
 
 env:
 
-  CLUSTER_URI: ${{ secrets.cluster_uri }}
-  TENANT_ID: ${{ secrets.tenant_id }}
-  CLIENT_ID: ${{ secrets.client_id }}
-  SECRET: ${{ secrets.secret_value }}
+  CLUSTER_URI: ${{ secrets.CLUSTER_URI }}
+  TENANT_ID: ${{ secrets.TENANT_ID }}
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  SECRET: ${{ secrets.SECRET_VALUE }}
   
 
 jobs:
@@ -40,11 +40,11 @@ jobs:
     
     - name: run delta kusto 
       run: |
-        clusterUri=$(CLUSTER_URI)
+        clusterUri=${{ env.CLUSTER_URI }}
         echo "Cluster URI:  $clusterUri"
         # Package the login in a JSON payload
-        login='{"tenantId":"$(TENANT_ID)","clientId":"$(CLIENT_ID)","secret":"$(SECRET)"}'
-        ./delta-kusto -p documentation/tutorials/az-dev-ops/reverse-engineer/rev-engineer-parameters.yaml -o jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
+        login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
+        ./delta-kusto -p scripts/dev_state_parameters.yaml -o jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.current.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
       
     
     # artifacts upload

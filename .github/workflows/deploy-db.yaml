@@ -36,10 +36,10 @@ jobs:
         tar -zxvf delta-kusto-linux.tar.gz 
         echo "cp command starts"
         sudo cp delta-kusto /bin 
-        echo" bin ls starts"
+        echo " bin ls starts"
         ls -lrt /bin | echo 
-        echo " pwd starts"
-        echo `pwd`
+        echo  "pwd starts"
+        pwd | echo
     
     # Checkout
     - name: Checkout

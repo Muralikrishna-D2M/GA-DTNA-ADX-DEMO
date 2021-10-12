@@ -1,3 +1,4 @@
+# test no 1
 sendErrorOptIn:  true
 jobs:
   download-dev:
@@ -9,7 +10,6 @@ jobs:
         folderPath:  kql-scripts/complete
   delta-dev:
     current:
-    
         adx:
             clusterUri:  to-be-overriden
             database:  dtnaadxprod01

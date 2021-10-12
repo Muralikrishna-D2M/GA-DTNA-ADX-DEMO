@@ -2,20 +2,20 @@ name: Workflow to deploy ADF ARM Template to UAT environment from DEV environmen
 on: 
   push:
     branches: 
-      - adf-uat
+      - main
     paths:
-      - GA-DTNA-ADF-DEV/**
+      - scripts/**
 
 env:
-  AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}        # set this to your Azure Resource group's name  
-  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}      # set this to your Azure Subscription Id
-  AZURE_DEV_DF_NAME: GA-DTNA-ADF-DEV
-  AZURE_PRD_DF_NAME: GA-DTNA-ADF-UAT
-  PROD_STORAGE_CONN_source: ${{ secrets.PROD_STORAGE_CONN_source }}
-  PROD_STORAGE_CONN_target: ${{ secrets.PROD_STORAGE_CONN_target }}
+
+  CLUSTER_URI: ${{ secrets.cluster_uri }}
+  TENANT_ID: ${{ secrets.tenant_id }}
+  CLIENT_ID: ${{ secrets.client_id }}
+  SECRET: ${{ secrets.secret_value }}
+  
 
 jobs:
-  Stop_the_ADF_triggers:
+  Generate_delta_for_devdb:
       
     runs-on: ubuntu-latest
     steps:
@@ -24,18 +24,20 @@ jobs:
     - name: run the bash script to install delta kusto CLI
       run: |
 
-        wget https://github.com/microsoft/delta-kusto/releases/download/$clientVersion/delta-kusto-linux.tar.gz
+        wget https://github.com/microsoft/delta-kusto/releases/download/0.6.0.85/delta-kusto-linux.tar.gz
         tar --extract --file delta-kusto-linux.tar.gz
         chmod +x ./delta-kusto 
         cp delta-kusto /bin 
-
+    
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v1 
+      
     - name: prepare the script folders
       run: |
 
-        mkdir documentation/tutorials/az-dev-ops/reverse-engineer/kql-scripts
-        mkdir documentation/tutorials/az-dev-ops/reverse-engineer/kql-scripts/complete
-         
-    # Set up the following secrets in your repository: AZURE_CREDENTIALS
+        mkdir scripts/kql-scripts
+        mkdir scripts/kql-scripts/complete
     
     - name: run delta kusto 
       run: |
@@ -51,4 +53,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: published
-        path: SyncKusto/bin/Release
+        path: scripts/kql-scripts

@@ -34,7 +34,7 @@ jobs:
         wget https://github.com/microsoft/delta-kusto/releases/download/0.6.0.85/delta-kusto-linux.tar.gz
         tar -zxvf delta-kusto-linux.tar.gz 
         sudo cp delta-kusto /bin 
-        echo 'ls -lrt /bin'
+        ls -lrt /bin | echo 
         echo 'pwd'
     
     # Checkout

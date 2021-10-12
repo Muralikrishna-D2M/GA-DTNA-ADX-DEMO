@@ -25,9 +25,8 @@ jobs:
       run: |
 
         wget https://github.com/microsoft/delta-kusto/releases/download/0.6.0.85/delta-kusto-linux.tar.gz
-        tar --extract --file delta-kusto-linux.tar.gz
-        chmod +x ./delta-kusto 
-        cp delta-kusto /bin 
+        tar --extract --file delta-kusto-linux.tar.gz 
+        sudo cp delta-kusto /bin 
     
     # Checkout
     - name: Checkout

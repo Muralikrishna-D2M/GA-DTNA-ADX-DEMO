@@ -39,6 +39,7 @@ jobs:
         echo "cp command starts"
         echo `ls `
         sudo cp delta-kusto /bin 
+        chmod +x /bin/delta-kusto
         echo " bin ls starts"
         echo `ls -l /bin/delta-kusto`
     

@@ -37,9 +37,8 @@ jobs:
         echo "cp command starts"
         sudo cp delta-kusto /bin 
         echo " bin ls starts"
-        ls -lrt /bin | echo 
-        echo  "pwd starts"
-        pwd | echo
+        echo `ls -lrt /bin`
+    
     
     # Checkout
     - name: Checkout
@@ -57,7 +56,7 @@ jobs:
         echo "Cluster URI:  $clusterUri"
         # Package the login in a JSON payload
         login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
-        ./delta-kusto -p scripts/dev_state_parameters.yaml -o jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.current.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
+        ./bin/delta-kusto -p scripts/dev_state_parameters.yaml -o jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.current.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
       
     
     # artifacts upload

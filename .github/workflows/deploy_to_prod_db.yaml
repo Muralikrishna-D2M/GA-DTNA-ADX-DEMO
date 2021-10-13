@@ -15,8 +15,9 @@ env:
   
 
 jobs:
-  Generate_delta_for_devdb:
-      
+  Deploy-Delta-to-prod:
+  
+    environment: 'prod'  
     runs-on: ubuntu-latest
     steps:
     # Authentication 

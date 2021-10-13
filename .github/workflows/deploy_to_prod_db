@@ -1,0 +1,42 @@
+name: Workflow to deploy delta( Dev vs prod)  schema chnages to prod ADX DB
+on: 
+  push:
+    branches: 
+      - main
+    paths:
+      - deploy_delta_to/**
+
+env:
+
+  CLUSTER_URI: ${{ secrets.CLUSTER_URI }}
+  TENANT_ID: ${{ secrets.TENANT_ID }}
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  SECRET: ${{ secrets.SECRET_VALUE }}
+  
+
+jobs:
+  Generate_delta_for_devdb:
+      
+    runs-on: ubuntu-latest
+    steps:
+    # Authentication 
+
+    - name: run the bash script to install delta kusto CLI
+      run: |
+        wget https://github.com/microsoft/delta-kusto/releases/download/0.6.0.85/delta-kusto-linux.tar.gz
+        tar -zxvf delta-kusto-linux.tar.gz 
+        sudo cp delta-kusto /bin 
+        sudo chmod +x /bin/delta-kusto
+    
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v1 
+      
+        
+    - name: run delta kusto 
+      run: |
+        clusterUri=${{ env.CLUSTER_URI }}
+        # Package the login in a JSON payload
+        login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
+        delta-kusto -p deploy_delta_to_prod/deploy_delta_to_prod_db_parameters.yaml -o  jobs.Deploy_to_prod.current.adx.clusterUri=$clusterUri jobs.Deploy_to_prod.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
+    

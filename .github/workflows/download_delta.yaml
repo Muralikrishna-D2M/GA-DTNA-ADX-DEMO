@@ -37,14 +37,14 @@ jobs:
       run: |
 
         mkdir dev_db_state_scripts/kql-scripts
-        mkdir dev_db_state_scripts/kql-scripts/complete
+       # mkdir dev_db_state_scripts/kql-scripts/complete
     
     - name: run delta kusto 
       run: |
         clusterUri=${{ env.CLUSTER_URI }}
         # Package the login in a JSON payload
         login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
-        delta-kusto -p dev_db_state_scripts/delta_btw_dev_prod_parameters.yaml -o  jobs.delta-dev.current.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
+        delta-kusto -p dev_db_state_scripts/delta_btw_dev_prod_parameters.yaml -o  jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.current.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
     
     
     # artifacts upload
@@ -53,3 +53,47 @@ jobs:
       with:
         name: Delta_btw_dev-prod_scripts
         path: dev_db_state_scripts/kql-scripts
+
+
+  
+#   Deploy_to_prod_db:
+      
+#     runs-on: ubuntu-latest
+#     steps:
+
+#     - name: run the bash script to install delta kusto CLI
+#       run: |
+#         wget https://github.com/microsoft/delta-kusto/releases/download/0.6.0.85/delta-kusto-linux.tar.gz
+#         tar -zxvf delta-kusto-linux.tar.gz 
+#         sudo cp delta-kusto /bin 
+#         sudo chmod +x /bin/delta-kusto
+    
+#     # Checkout
+#     - name: Checkout
+#       uses: actions/checkout@v1 
+      
+#     - uses: actions/download-artifact@v2
+#       with:
+#          name: my-artifact
+#          path: ~/download/path
+      
+#     - name: prepare the script folders
+#       run: |
+#         mkdir dev_db_state_scripts/kql-scripts
+#         mkdir dev_db_state_scripts/kql-scripts/complete
+    
+#     - name: run delta kusto 
+#       run: |
+#         clusterUri=${{ env.CLUSTER_URI }}
+#         # Package the login in a JSON payload
+#         login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
+#         delta-kusto -p dev_db_state_scripts/delta_btw_dev_prod_parameters.yaml -o  jobs.delta-dev.current.adx.clusterUri=$clusterUri jobs.delta-dev.target.adx.clusterUri=$clusterUri tokenProvider.login=$login
+    
+    
+#     # artifacts upload
+#     - name: Upload Artifact
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: Delta_btw_dev-prod_scripts
+#         path: dev_db_state_scripts/kql-scripts
+

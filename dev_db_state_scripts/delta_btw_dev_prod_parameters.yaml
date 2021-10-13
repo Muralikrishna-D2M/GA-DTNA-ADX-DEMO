@@ -16,7 +16,7 @@ jobs:
         
     target:
        scripts:
-        - filePath:  deploy_delta_to_prod/state/target_state.kql
+        - filePath:  ../deploy_delta_to_prod/state/target_state.kql
         
     action:
         pushToConsole:  true

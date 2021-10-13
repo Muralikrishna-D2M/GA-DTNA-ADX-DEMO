@@ -1,13 +1,16 @@
 sendErrorOptIn:  true
 jobs:
-  push-state:
+  Deploy_to_prod:
     current:
         adx:
             clusterUri:  to-be-overriden
-            database:  to-be-overriden
+            database:  dtnaadxprod01
+        
     target:
-        scripts:
-        - folderPath:  ../state
+        adx:
+            clusterUri:  to-be-overriden
+            database:  dtnadev01
+    
     action:
         pushToCurrent:  true
         pushToConsole:  true

@@ -1,0 +1,28 @@
+# test no 26
+sendErrorOptIn:  true
+jobs:
+#   download-dev:
+#     target:
+#         adx:
+#             clusterUri:  to-be-overriden
+#             database:  dtnadev01
+#     action:
+#         folderPath:  kql-scripts/complete
+  delta-dev:
+    current:
+        adx:
+            clusterUri:  to-be-overriden
+            database:  dtnaadxprod01
+        
+    target:
+        adx:
+            clusterUri:  to-be-overriden
+            database:  dtnadev01
+    action:
+        pushToConsole:  true
+        filePath:  kql-scripts/delta.kql
+tokenProvider:
+    login:
+        tenantId:  to-be-overriden
+        clientId:  to-be-overriden
+        secret:  to-be-overriden

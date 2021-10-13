@@ -1,0 +1,20 @@
+sendErrorOptIn:  true
+jobs:
+  push-state:
+    current:
+        adx:
+            clusterUri:  to-be-overriden
+            database:  to-be-overriden
+    target:
+        scripts:
+        - folderPath:  ../state
+    action:
+        pushToCurrent:  true
+        pushToConsole:  true
+        
+    
+tokenProvider:
+  login:
+      tenantId:  to-be-overriden
+      clientId:  to-be-overriden
+      secret:  to-be-overriden   

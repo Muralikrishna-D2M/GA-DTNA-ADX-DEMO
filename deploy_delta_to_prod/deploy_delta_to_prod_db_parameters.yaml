@@ -1,7 +1,7 @@
 # manual commit1
 sendErrorOptIn:  true
 jobs:
-  Deploy_to_prod:
+  deploytoprod:
     current:
         adx:
             clusterUri:  to-be-overriden

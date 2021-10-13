@@ -16,7 +16,7 @@ jobs:
         
     target:
         scripts:
-            filepath: deploy_delta_to_prod/state/target_state.kql
+            - filepath: deploy_delta_to_prod/state/target_state.kql
 #         adx:
 #             clusterUri:  to-be-overriden
 #             database:  dtnadev01

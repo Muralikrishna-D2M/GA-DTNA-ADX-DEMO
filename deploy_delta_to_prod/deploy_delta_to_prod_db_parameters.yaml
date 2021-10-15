@@ -10,7 +10,7 @@ jobs:
     target:
         
         scripts:
-          - filePath: to-be-overriden
+          - filePath: state/target_state.kql
 #         adx:
 #             clusterUri:  to-be-overriden
 #             database:  dtnadev01

@@ -58,7 +58,7 @@ jobs:
         path: dev_db_state_scripts/kql-scripts
     
     - name: Pushes test file
-      uses: dmnemec/copy_file_to_another_repo_action@main
+      uses: dmnemec/copy_file_to_another_repo_action@3fe42250d47e0764da9de9939b151b09a26e5857
       env:
         API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
 #         ${{ secrets.API_TOKEN_GITHUB }}

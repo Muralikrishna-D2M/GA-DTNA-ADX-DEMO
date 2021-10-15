@@ -10,7 +10,7 @@ jobs:
     target:
         
         scripts:
-        - filePath:  to-be-overriden
+          - filePath: to-be-overriden
 #         adx:
 #             clusterUri:  to-be-overriden
 #             database:  dtnadev01

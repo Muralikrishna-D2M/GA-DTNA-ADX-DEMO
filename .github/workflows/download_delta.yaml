@@ -59,9 +59,14 @@ jobs:
       run: echo ${{ github.run_id }}
     - name: Output Run Number
       run: echo ${{ github.run_number }}  
+
+    - name: Output Run Number
+      run: echo ${{ github.SHA }}
   Deploy_to_prod_db:
-      
+    
+    environment: 'prod'
     runs-on: ubuntu-latest
+    
     steps:
 
     - name: run the bash script to install delta kusto CLI
@@ -89,6 +94,9 @@ jobs:
       run: echo ${{ github.run_id }}
     - name: Output Run Number
       run: echo ${{ github.run_number }}
+      
+    - name: Output Run Number
+      run: echo ${{ github.SHA }}
     
 #     - name: run delta kusto 
 #       run: |

@@ -53,34 +53,42 @@ jobs:
       with:
         name: Delta_btw_dev-prod_scripts
         path: dev_db_state_scripts/kql-scripts
-
-
-  
-#   Deploy_to_prod_db:
-      
-#     runs-on: ubuntu-latest
-#     steps:
-
-#     - name: run the bash script to install delta kusto CLI
-#       run: |
-#         wget https://github.com/microsoft/delta-kusto/releases/download/0.6.0.85/delta-kusto-linux.tar.gz
-#         tar -zxvf delta-kusto-linux.tar.gz 
-#         sudo cp delta-kusto /bin 
-#         sudo chmod +x /bin/delta-kusto
     
-#     # Checkout
-#     - name: Checkout
-#       uses: actions/checkout@v1 
+    
+    - name: Output Run ID
+        run: echo ${{ github.run_id }}
+      - name: Output Run Number
+        run: echo ${{ github.run_number }}  
+  Deploy_to_prod_db:
       
-#     - uses: actions/download-artifact@v2
-#       with:
-#          name: my-artifact
-#          path: ~/download/path
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: run the bash script to install delta kusto CLI
+      run: |
+        wget https://github.com/microsoft/delta-kusto/releases/download/0.6.0.85/delta-kusto-linux.tar.gz
+        tar -zxvf delta-kusto-linux.tar.gz 
+        sudo cp delta-kusto /bin 
+        sudo chmod +x /bin/delta-kusto
+    
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v1 
       
-#     - name: prepare the script folders
-#       run: |
-#         mkdir dev_db_state_scripts/kql-scripts
-#         mkdir dev_db_state_scripts/kql-scripts/complete
+    - uses: actions/download-artifact@v2
+      with:
+         name: my-artifact
+         path: ~/download/path
+      
+    - name: prepare the script folders
+      run: |
+        mkdir dev_db_state_scripts/kql-scripts
+        mkdir dev_db_state_scripts/kql-scripts/complete
+        
+    - name: Output Run ID
+        run: echo ${{ github.run_id }}
+      - name: Output Run Number
+        run: echo ${{ github.run_number }}
     
 #     - name: run delta kusto 
 #       run: |

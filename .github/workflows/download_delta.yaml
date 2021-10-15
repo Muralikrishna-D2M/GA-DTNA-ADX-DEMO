@@ -56,9 +56,9 @@ jobs:
     
     
     - name: Output Run ID
-        run: echo ${{ github.run_id }}
-      - name: Output Run Number
-        run: echo ${{ github.run_number }}  
+      run: echo ${{ github.run_id }}
+    - name: Output Run Number
+      run: echo ${{ github.run_number }}  
   Deploy_to_prod_db:
       
     runs-on: ubuntu-latest
@@ -86,9 +86,9 @@ jobs:
         mkdir dev_db_state_scripts/kql-scripts/complete
         
     - name: Output Run ID
-        run: echo ${{ github.run_id }}
-      - name: Output Run Number
-        run: echo ${{ github.run_number }}
+      run: echo ${{ github.run_id }}
+    - name: Output Run Number
+      run: echo ${{ github.run_number }}
     
 #     - name: run delta kusto 
 #       run: |

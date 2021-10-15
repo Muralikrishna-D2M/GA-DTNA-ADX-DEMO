@@ -40,5 +40,5 @@ jobs:
         script_filepath=deploy_delta_to_prod/state/delta-${{ github.run_number }}.kql
         # Package the login in a JSON payload
         login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
-        delta-kusto -p deploy_delta_to_prod/deploy_delta_to_prod_db_parameters.yaml -o  jobs.deploytoprod.current.adx.clusterUri=$clusterUri jobs.deploytoprod.target.scripts[{filePath}]=$script_filepath tokenProvider.login=$login
+        delta-kusto -p deploy_delta_to_prod/deploy_delta_to_prod_db_parameters.yaml -o  jobs.deploytoprod.current.adx.clusterUri=$clusterUri jobs.deploytoprod.target.scripts[{"filePath"}]=$script_filepath tokenProvider.login=$login
     

@@ -57,6 +57,18 @@ jobs:
         name: Delta_btw_dev-prod_scripts
         path: dev_db_state_scripts/kql-scripts
     
+    - name: Pushes test file
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
+#         ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'dev_db_state_scripts/kql-scripts/delta-"${{ github.run_number }}".kql'
+        destination_repo: 'Muralikrishna-D2M/GA-DTNA-ADX-DEMO'
+        destination_folder: 'deploy_delta_to_prod/state'
+        user_email: 'muralikrishna.annem@disys.com'
+        user_name: 'Muralikrishna-D2M'
+        commit_message: 'delta file upload from workflow Run number - "${{ github.run_number }}"'
     
     - name: Output Run ID
       run: echo ${{ github.run_id }}

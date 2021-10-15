@@ -66,6 +66,7 @@ jobs:
     
     environment: 'prod'
     runs-on: ubuntu-latest
+    needs: [ Generate_delta_for_devdb ]
     
     steps:
 

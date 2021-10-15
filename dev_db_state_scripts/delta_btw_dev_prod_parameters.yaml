@@ -8,6 +8,7 @@ jobs:
             database:  dtnadev01
     action:
         filePath:  kql-scripts/dev-state.kql
+        
   delta-dev:
     current:
         adx:
@@ -15,8 +16,12 @@ jobs:
             database:  dtnaadxprod01
         
     target:
-       scripts:
-        - filePath:  ../deploy_delta_to_prod/state/target_state.kql
+     
+         adx:
+            clusterUri:  to-be-overriden
+            database:  dtnadev01
+#        scripts:
+#         - filePath:  ../deploy_delta_to_prod/state/target_state.kql
         
     action:
         pushToConsole:  true

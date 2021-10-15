@@ -63,7 +63,7 @@ jobs:
         API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
 #         ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source_file: 'dev_db_state_scripts/kql-scripts/delta-"${{ github.run_number }}".kql'
+        source_file: 'dev_db_state_scripts/kql-scripts/delta-${{ github.run_number }}.kql'
         destination_repo: 'Muralikrishna-D2M/GA-DTNA-ADX-DEMO'
         destination_folder: 'deploy_delta_to_prod/state'
         user_email: 'muralikrishna.annem@disys.com'

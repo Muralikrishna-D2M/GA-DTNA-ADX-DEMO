@@ -4,7 +4,7 @@ on:
     branches: 
       - main
     paths:
-      - deploy_delta_to_prod/**
+      - deploy_delta_to_prod/state/target_state.kql
 
 env:
 

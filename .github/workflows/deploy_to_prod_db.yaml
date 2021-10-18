@@ -1,11 +1,15 @@
 name: Workflow to deploy delta( Dev vs prod)  schema chnages to prod ADX DB
-on: 
-  push:
-    branches: 
-      - main
-    paths:
-      - deploy_delta_to_prod/state/target_state.kql
+# on: 
+#   push:
+#     branches: 
+#       - main
+#     paths:
+#       - deploy_delta_to_prod/state/target_state.kql
 
+
+on:
+  workflow_run:
+    workflows: ["Workflow to deploy delta( Dev vs prod) schema chnages to prod ADX DB"]
 env:
 
   CLUSTER_URI: ${{ secrets.CLUSTER_URI }}

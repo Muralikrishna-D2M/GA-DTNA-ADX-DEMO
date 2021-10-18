@@ -6,6 +6,12 @@ on:
     paths:
       - dev_db_state_scripts/delta_btw_dev_prod_parameters.yaml
 
+# on:
+#   schedule:
+#     # * is a special character in YAML so you have to quote this string
+#     - cron:  '30 5,17 * * *'
+      
+
 env:
 
   CLUSTER_URI: ${{ secrets.CLUSTER_URI }}

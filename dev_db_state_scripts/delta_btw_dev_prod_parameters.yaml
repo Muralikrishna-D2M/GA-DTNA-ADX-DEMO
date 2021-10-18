@@ -9,6 +9,15 @@ jobs:
     action:
         filePath:  kql-scripts/dev-state.kql
         
+   download-prod:
+    target:
+        adx:
+            clusterUri:  to-be-overriden
+            database:  dtnaadxprod01
+    action:
+        filePath:  kql-scripts/prod-state.kql
+        
+        
   delta-dev:
     current:
         adx:

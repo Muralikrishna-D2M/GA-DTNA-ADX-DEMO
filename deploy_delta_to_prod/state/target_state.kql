@@ -63,9 +63,7 @@ StormEvents | limit 100
 }
 ```
 
-//  Drop functions
 
-.drop function MyFunction5
 
 //  Create tables
 

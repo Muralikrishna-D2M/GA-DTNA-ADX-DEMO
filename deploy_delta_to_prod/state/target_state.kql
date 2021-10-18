@@ -2,6 +2,8 @@
 
 .create-merge table MyLogs (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
 
+.create-merge table Mytest1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+
 .create-merge table MytestLogs (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
 
 .create-merge table MyUsers (UserId:string, Name:string) with (folder="", docstring="") 
@@ -19,6 +21,14 @@ StormEvents | limit 100
 }
 
 .create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction3 () {
+StormEvents | limit 100
+}
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction4 () {
+StormEvents | limit 100
+}
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction5 () {
 StormEvents | limit 100
 }
 
@@ -53,13 +63,17 @@ StormEvents | limit 100
 }
 ```
 
+//  Drop functions
+
+.drop function MyFunction5
+
 //  Create tables
 
-.create-merge table Mytest1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+.create-merge table Mydemo1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
 
 //  Create functions
 
-.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction4 () {
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) Mydemofunction1 () {
 StormEvents | limit 100
 }
 

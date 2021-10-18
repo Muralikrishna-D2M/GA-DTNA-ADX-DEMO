@@ -1,0 +1,14 @@
+//  Drop functions
+
+.drop function MyFunction5
+
+//  Create tables
+
+.create-merge table Mydemo1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+
+//  Create functions
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) Mydemofunction1 () {
+StormEvents | limit 100
+}
+

@@ -2,18 +2,6 @@
 
 .create-merge table MyLogs (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
 
-//  Create functions
-
-.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction2 () {
-StormEvents | limit 100
-}
-
-.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction3 () {
-StormEvents | limit 100
-}
-
-//  Create tables
-
 .create-merge table MyUsers (UserId:string, Name:string) with (folder="", docstring="") 
 
 .create-merge table StormEvents (StartTime:datetime, EndTime:datetime, EpisodeId:int, EventId:int, State:string, EventType:string, InjuriesDirect:int, InjuriesIndirect:int, DeathsDirect:int, DeathsIndirect:int, DamageProperty:int, DamageCrops:int, Source:string, BeginLocation:string, EndLocation:string, BeginLat:real, BeginLon:real, EndLat:real, EndLon:real, EpisodeNarrative:string, EventNarrative:string, StormSummary:dynamic) with (folder="", docstring="") 
@@ -24,13 +12,21 @@ StormEvents | limit 100
 StormEvents | limit 100
 }
 
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction2 () {
+StormEvents | limit 100
+}
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction3 () {
+StormEvents | limit 100
+}
+
 //  Alter Caching Policies
 
-.alter database dtnadev01 policy caching hot = 31d
+.alter database dtnaadxprod01 policy caching hot = 31d
 
 //  Alter Merge Policies
 
-.alter database dtnadev01 policy merge
+.alter database dtnaadxprod01 policy merge
 ```{
   "RowCountUpperBoundForMerge": 16000000,
   "OriginalSizeMBUpperBoundForMerge": 0,
@@ -48,9 +44,10 @@ StormEvents | limit 100
 
 //  Alter Retention Policies
 
-.alter database dtnadev01 policy retention
+.alter database dtnaadxprod01 policy retention
 ```{
   "SoftDeletePeriod": "365.00:00:00",
   "Recoverability": "Enabled"
 }
 ```
+

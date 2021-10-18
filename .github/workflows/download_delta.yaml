@@ -4,7 +4,7 @@ on:
     branches: 
       - main
     paths:
-      - dev_db_state_scripts/delta_btw_dev_prod_parameters.yaml
+      - dev_db_state_scripts/123delta_btw_dev_prod_parameters.yaml
 
 env:
 
@@ -58,6 +58,19 @@ jobs:
         path: dev_db_state_scripts/kql-scripts
     
     - name: Pushes test file
+      uses: dmnemec/copy_file_to_another_repo_action@3fe42250d47e0764da9de9939b151b09a26e5857
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
+#         ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'dev_db_state_scripts/kql-scripts/.'
+        destination_repo: 'Muralikrishna-D2M/GA-DTNA-ADX-DEMO'
+        destination_folder: 'dev_db_state_scripts/state_files/'
+        user_email: 'muralikrishna.annem@disys.com'
+        user_name: 'Muralikrishna-D2M'
+        commit_message: 'delta file upload from workflow Run number - "${{ github.run_number }}"'
+        
+    - name: Pushes prod DB target-state file for deployment
       uses: dmnemec/copy_file_to_another_repo_action@3fe42250d47e0764da9de9939b151b09a26e5857
       env:
         API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}

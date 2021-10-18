@@ -1,4 +1,4 @@
-# manual trigger -11
+# manual trigger -12
 sendErrorOptIn:  true
 jobs:
   download-dev:
@@ -9,7 +9,7 @@ jobs:
     action:
         filePath:  kql-scripts/dev-state.kql
         
-   download-prod:
+  download-prod:
     target:
         adx:
             clusterUri:  to-be-overriden

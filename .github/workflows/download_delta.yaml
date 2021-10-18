@@ -4,7 +4,7 @@ on:
     branches: 
       - main
     paths:
-      - dev_db_state_scripts/123delta_btw_dev_prod_parameters.yaml
+      - dev_db_state_scripts/delta_btw_dev_prod_parameters.yaml
 
 env:
 

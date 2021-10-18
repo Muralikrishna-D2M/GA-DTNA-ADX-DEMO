@@ -1,3 +1,4 @@
+#test
 //  Create tables
 
 .create-merge table MyLogs (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 

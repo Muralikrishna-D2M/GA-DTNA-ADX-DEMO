@@ -1,4 +1,4 @@
-name: Workflow to deploy ADX Dev env  schema changes to prod ADX env  
+name: Workflow to generate  Dev-env state and Delta script files
 on: 
   push:
     branches: 
@@ -45,8 +45,8 @@ jobs:
         # Package the login in a JSON payload
         login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
         delta-kusto -p dev_db_state_scripts/delta_btw_dev_prod_parameters.yaml -o  jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.current.adx.clusterUri=$clusterUri  jobs.delta-dev.target.adx.clusterUri=$clusterUri  tokenProvider.login=$login
-        mv dev_db_state_scripts/kql-scripts/dev-state.kql dev_db_state_scripts/kql-scripts/dev-state-"${{ github.run_number }}".kql
-        mv dev_db_state_scripts/kql-scripts/delta.kql dev_db_state_scripts/kql-scripts/delta-"${{ github.run_number }}".kql
+        mv dev_db_state_scripts/kql-scripts/dev-state.kql dev_db_state_scripts/kql-scripts/dev-state-buildno-"${{ github.run_number }}".kql
+        mv dev_db_state_scripts/kql-scripts/delta.kql dev_db_state_scripts/kql-scripts/delta-buildno-"${{ github.run_number }}".kql
         
     
     
@@ -63,71 +63,14 @@ jobs:
         API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
 #         ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source_file: 'dev_db_state_scripts/kql-scripts/delta-${{ github.run_number }}.kql'
+        source_file: 'dev_db_state_scripts/kql-scripts/.'
         destination_repo: 'Muralikrishna-D2M/GA-DTNA-ADX-DEMO'
-        destination_folder: 'deploy_delta_to_prod/state'
+        destination_folder: 'dev_db_state_scripts/state_files/'
         user_email: 'muralikrishna.annem@disys.com'
         user_name: 'Muralikrishna-D2M'
         commit_message: 'delta file upload from workflow Run number - "${{ github.run_number }}"'
     
-    - name: Output Run ID
-      run: echo ${{ github.run_id }}
-    - name: Output Run Number
-      run: echo ${{ github.run_number }}  
+   
+      
 
-    - name: Output Run Number
-      run: echo ${{ github.SHA }}
-      
-      
-  Deploy_to_prod_db:
-    
-    environment: 'prod'
-    runs-on: ubuntu-latest
-    needs: [ Generate_delta_for_devdb ]
-    
-    steps:
-
-    - name: run the bash script to install delta kusto CLI
-      run: |
-        wget https://github.com/microsoft/delta-kusto/releases/download/0.6.0.85/delta-kusto-linux.tar.gz
-        tar -zxvf delta-kusto-linux.tar.gz 
-        sudo cp delta-kusto /bin 
-        sudo chmod +x /bin/delta-kusto
-    
-    # Checkout
-    - name: Checkout
-      uses: actions/checkout@v1 
-      
-#     - uses: actions/download-artifact@v2
-#       with:
-#          name: my-artifact
-#          path: ~/download/path
-      
-    - name: prepare the script folders
-      run: |
-        mkdir dev_db_state_scripts/kql-scripts
-        mkdir dev_db_state_scripts/kql-scripts/complete
-        
-    - name: Output Run ID
-      run: echo ${{ github.run_id }}
-    - name: Output Run Number
-      run: echo ${{ github.run_number }}
-      
-    - name: Output Run Number
-      run: echo ${{ github.SHA }}
-    
-#     - name: run delta kusto 
-#       run: |
-#         clusterUri=${{ env.CLUSTER_URI }}
-#         # Package the login in a JSON payload
-#         login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
-#         delta-kusto -p dev_db_state_scripts/delta_btw_dev_prod_parameters.yaml -o  jobs.delta-dev.current.adx.clusterUri=$clusterUri  tokenProvider.login=$login
-    
-    
-#     # artifacts upload
-#     - name: Upload Artifact
-#       uses: actions/upload-artifact@v2
-#       with:
-#         name: Delta_btw_dev-prod_scripts
-#         path: dev_db_state_scripts/kql-scripts
 

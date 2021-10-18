@@ -44,9 +44,14 @@ jobs:
         clusterUri=${{ env.CLUSTER_URI }}
         # Package the login in a JSON payload
         login='{"tenantId":"${{ env.TENANT_ID }}","clientId":"${{ env.CLIENT_ID }}","secret":"${{ env.SECRET }}"}'
-        delta-kusto -p dev_db_state_scripts/delta_btw_dev_prod_parameters.yaml -o  jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.delta-dev.current.adx.clusterUri=$clusterUri  jobs.delta-dev.target.adx.clusterUri=$clusterUri  tokenProvider.login=$login
+        delta-kusto -p dev_db_state_scripts/delta_btw_dev_prod_parameters.yaml -o  jobs.download-dev.target.adx.clusterUri=$clusterUri jobs.download-prod.target.adx.clusterUri=$clusterUri jobs.delta-dev.current.adx.clusterUri=$clusterUri  jobs.delta-dev.target.adx.clusterUri=$clusterUri  tokenProvider.login=$login
         mv dev_db_state_scripts/kql-scripts/dev-state.kql dev_db_state_scripts/kql-scripts/dev-state-buildno-"${{ github.run_number }}".kql
+        mv dev_db_state_scripts/kql-scripts/prod-state.kql dev_db_state_scripts/kql-scripts/prod-state-buildno-"${{ github.run_number }}".kql
         mv dev_db_state_scripts/kql-scripts/delta.kql dev_db_state_scripts/kql-scripts/delta-buildno-"${{ github.run_number }}".kql
+        touch dev_db_state_scripts/kql-scripts/target_state.kql
+        cat dev_db_state_scripts/kql-scripts/prod-state.kql >> dev_db_state_scripts/kql-scripts/target_state.kql
+        cat dev_db_state_scripts/kql-scripts/delta.kql >> dev_db_state_scripts/kql-scripts/target_state.kql
+        
         
     
     
@@ -76,12 +81,12 @@ jobs:
         API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
 #         ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source_file: 'dev_db_state_scripts/kql-scripts/.'
+        source_file: 'dev_db_state_scripts/kql-scripts/target_state.kql'
         destination_repo: 'Muralikrishna-D2M/GA-DTNA-ADX-DEMO'
-        destination_folder: 'dev_db_state_scripts/state_files/'
+        destination_folder: 'deploy_delta_to_prod/state/'
         user_email: 'muralikrishna.annem@disys.com'
         user_name: 'Muralikrishna-D2M'
-        commit_message: 'delta file upload from workflow Run number - "${{ github.run_number }}"'
+        commit_message: 'prod DB  target state file upload from workflow Run number - "${{ github.run_number }}"'
     
    
       

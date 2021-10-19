@@ -1,5 +1,7 @@
 //  Create tables
 
+.create-merge table Mydemo1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+
 .create-merge table MyLogs (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
 
 .create-merge table Mytest1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
@@ -63,11 +65,9 @@ StormEvents | limit 100
 }
 ```
 
+//  Drop functions
 
-
-//  Create tables
-
-.create-merge table Mydemo1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+.drop function MyFunction5
 
 //  Create functions
 

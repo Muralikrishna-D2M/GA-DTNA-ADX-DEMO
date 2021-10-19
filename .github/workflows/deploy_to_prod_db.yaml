@@ -38,6 +38,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1 
       
+    # Deployment Notification to Teams Channel
+    - uses: toko-bifrost/ms-teams-deploy-card@master #  or "./" if in a local set-up
+      if: always()
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+        environment: Prod
+      
         
     - name: run delta kusto 
       run: |

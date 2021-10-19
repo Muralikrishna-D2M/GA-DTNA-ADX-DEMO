@@ -1,0 +1,10 @@
+//  Drop functions
+
+.drop function MyFunction5
+
+//  Create functions
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) Mydemofunction1 () {
+StormEvents | limit 100
+}
+

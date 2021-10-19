@@ -69,9 +69,4 @@ StormEvents | limit 100
 
 .create-merge table Mydemo2 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
 
-//  Create functions
-
-.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) Mydemofunction2 () {
-StormEvents | limit 100
-}
 

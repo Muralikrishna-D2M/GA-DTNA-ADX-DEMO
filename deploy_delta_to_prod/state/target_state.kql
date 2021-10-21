@@ -2,6 +2,8 @@
 
 .create-merge table Mydemo1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
 
+.create-merge table Mydemo2 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+
 .create-merge table MyLogs (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
 
 .create-merge table Mytest1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
@@ -15,6 +17,10 @@
 //  Create functions
 
 .create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) Mydemofunction1 () {
+StormEvents | limit 100
+}
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) Mydemofunctiondrop () {
 StormEvents | limit 100
 }
 
@@ -65,8 +71,13 @@ StormEvents | limit 100
 }
 ```
 
-//  Create tables
+//  Drop functions
 
-.create-merge table Mydemo2 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+.drop function Mydemofunctiondrop
 
+//  Create functions
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) Mydemofunction2 () {
+StormEvents | limit 100
+}
 

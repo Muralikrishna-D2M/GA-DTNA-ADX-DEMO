@@ -1,5 +1,6 @@
 # manual commit1
 sendErrorOptIn:  true
+failIfDataLoss: false
 jobs:
   deploytoprod:
     current:

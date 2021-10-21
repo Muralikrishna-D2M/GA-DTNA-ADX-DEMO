@@ -29,7 +29,7 @@ jobs:
 
     - name: run the bash script to install delta kusto CLI
       run: |
-        wget https://github.com/microsoft/delta-kusto/releases/download/0.6.0.85/delta-kusto-linux.tar.gz
+        wget https://github.com/microsoft/delta-kusto/releases/download/0.6.1.86/delta-kusto-linux.tar.gz
         tar -zxvf delta-kusto-linux.tar.gz 
         sudo cp delta-kusto /bin 
         sudo chmod +x /bin/delta-kusto

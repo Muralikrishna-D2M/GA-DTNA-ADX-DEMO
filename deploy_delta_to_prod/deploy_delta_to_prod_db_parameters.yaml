@@ -11,10 +11,10 @@ jobs:
     target:
         
         scripts:
-          - filePath: state/target_state.kql
-#         adx:
-#             clusterUri:  to-be-overriden
-#             database:  dtnadev01
+         # - filePath: state/target_state.kql
+        adx:
+            clusterUri:  to-be-overriden
+            database:  dtnadev01
     
     action:
         pushToCurrent:  true

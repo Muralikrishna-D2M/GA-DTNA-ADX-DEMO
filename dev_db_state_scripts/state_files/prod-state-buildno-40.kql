@@ -1,0 +1,75 @@
+//  Create tables
+
+.create-merge table Mydemo1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+
+.create-merge table Mydemo2 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+
+.create-merge table Mydemodroptable (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+
+.create-merge table MyLogs (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+
+.create-merge table Mytest1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+
+.create-merge table MytestLogs (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
+
+.create-merge table MyUsers (UserId:string, Name:string) with (folder="", docstring="") 
+
+.create-merge table StormEvents (StartTime:datetime, EndTime:datetime, EpisodeId:int, EventId:int, State:string, EventType:string, InjuriesDirect:int, InjuriesIndirect:int, DeathsDirect:int, DeathsIndirect:int, DamageProperty:int, DamageCrops:int, Source:string, BeginLocation:string, EndLocation:string, BeginLat:real, BeginLon:real, EndLat:real, EndLon:real, EpisodeNarrative:string, EventNarrative:string, StormSummary:dynamic) with (folder="", docstring="") 
+
+//  Create functions
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) Mydemofunction1 () {
+StormEvents | limit 100
+}
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) Mydemofunctiondrop () {
+StormEvents | limit 100
+}
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction1 () {
+StormEvents | limit 100
+}
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction2 () {
+StormEvents | limit 100
+}
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction3 () {
+StormEvents | limit 100
+}
+
+.create-or-alter function with (folder="Demo", docstring="Simple demo function", skipvalidation=true) MyFunction4 () {
+StormEvents | limit 100
+}
+
+//  Alter Caching Policies
+
+.alter database dtnaadxprod01 policy caching hot = 31d
+
+//  Alter Merge Policies
+
+.alter database dtnaadxprod01 policy merge
+```{
+  "RowCountUpperBoundForMerge": 16000000,
+  "OriginalSizeMBUpperBoundForMerge": 0,
+  "MaxExtentsToMerge": 100,
+  "LoopPeriod": "01:00:00",
+  "MaxRangeInHours": 24,
+  "AllowRebuild": true,
+  "AllowMerge": true,
+  "Lookback": {
+    "Kind": 0,
+    "CustomPeriod": null
+  }
+}
+```
+
+//  Alter Retention Policies
+
+.alter database dtnaadxprod01 policy retention
+```{
+  "SoftDeletePeriod": "365.00:00:00",
+  "Recoverability": "Enabled"
+}
+```
+

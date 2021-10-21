@@ -1,4 +1,4 @@
-//  Create table
+//  Create tables
 
 .create-merge table Mydemo1 (Level:string, Timestamp:datetime, UserId:string, TraceId:string, Message:string, ProcessId:int) with (folder="", docstring="") 
 
